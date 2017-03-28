@@ -91,6 +91,12 @@ ENTRY(_main)
 
 	mov	r0, #0
 	bl	board_init_f
+/*delay:
+	ldr	r1, =0xfff
+	sub	r1, #1
+	beq	delay
+	*/
+	bl	yellow_led_off
 
 #if ! defined(CONFIG_SPL_BUILD)
 
@@ -161,7 +167,7 @@ clbss_l:cmp	r0, r1			/* while not at end of BSS */
 
 #if ! defined(CONFIG_SPL_BUILD)
 	bl coloured_LED_init
-	bl red_led_on
+	bl yellow_led_off
 #endif
 	/* call board_init_r(gd_t *id, ulong dest_addr) */
 	mov     r0, r9                  /* gd_t */

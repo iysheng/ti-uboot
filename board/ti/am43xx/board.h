@@ -17,6 +17,8 @@
 #define DEV_ATTR_MAX_OFFSET    5
 #define DEV_ATTR_MIN_OFFSET    0
 
+#define board_is_rico() 1
+
 static inline int board_is_eposevm(void)
 {
 	return board_ti_is("AM43EPOS");

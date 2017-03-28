@@ -9,6 +9,7 @@
 #ifndef __CONFIG_AM43XX_EVM_H
 #define __CONFIG_AM43XX_EVM_H
 
+
 #define CONFIG_BOARD_LATE_INIT
 #define CONFIG_ARCH_CPU_INIT
 #define CONFIG_SYS_CACHELINE_SIZE       32
@@ -17,6 +18,9 @@
 
 #include <asm/arch/omap.h>
 
+
+
+#define CONFIG_BOOTARGS "root=179:26 rw init=/linuxrc console=ttyO0,115200"
 /* NS16550 Configuration */
 #define CONFIG_SYS_NS16550_CLK		48000000
 #if defined(CONFIG_SPL_BUILD) || !defined(CONFIG_DM_SERIAL)
@@ -306,7 +310,7 @@
 	NANDARGS \
 	NETARGS \
 	DFUARGS \
-
+/*
 #define CONFIG_BOOTCOMMAND \
 	"if test ${boot_fit} -eq 1; then "	\
 		"run update_to_fit;"	\
@@ -316,7 +320,8 @@
 	"run mmcboot;" \
 	"run usbboot;" \
 	NANDBOOT \
-
+*/
+#define CONFIG_BOOTCOMMAND "fatload mmc 0:1 80000000 uImage\;fatload mmc 0:1 90000000 myir_ricoboard.dtb\;bootm 80000000 - 90000000;"
 #endif
 
 #ifndef CONFIG_SPL_BUILD

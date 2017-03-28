@@ -95,7 +95,7 @@ extern void __led_init (led_id_t mask, int state);
 extern void __led_set (led_id_t mask, int state);
 void __led_blink(led_id_t mask, int freq);
 #else
-# error Status LED configuration missing
+# warning Status LED configuration missing
 #endif
 /************************************************************************/
 

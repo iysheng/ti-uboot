@@ -38,6 +38,9 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
+#define yellow_led ((5<<5)+3)
+
+
 #if !CONFIG_IS_ENABLED(OF_CONTROL)
 static const struct ns16550_platdata am33xx_serial[] = {
 	{ .base = CONFIG_SYS_NS16550_COM1, .reg_shift = 2, .clock = CONFIG_SYS_NS16550_CLK },
@@ -127,6 +130,26 @@ int cpu_mmc_init(bd_t *bis)
 /* Board type field bit shift for RTC only mode */
 #define RTC_BOARD_TYPE_SHIFT	16
 
+void	coloured_LED_init (void)
+{
+	/*if(!gpio_request(yellow_led,"yellow"))*/
+	gpio_direction_output(yellow_led,0);
+}
+void	yellow_led_on(void)
+{
+	gpio_set_value(yellow_led,1);
+}
+void	yellow_led_off(void)
+{
+	int a = 1000;
+	while(a>1)
+	{
+		a--;
+	}
+	gpio_set_value(yellow_led,0);
+//	puts("iysheng yellow led off.\n");
+}
+
 /* AM33XX has two MUSB controllers which can be host or gadget */
 #if (defined(CONFIG_USB_MUSB_GADGET) || defined(CONFIG_USB_MUSB_HOST)) && \
 	(defined(CONFIG_AM335X_USB0) || defined(CONFIG_AM335X_USB1)) && \
@@ -138,6 +161,7 @@ static struct ctrl_dev *cdev = (struct ctrl_dev *)CTRL_DEVICE_BASE;
 #define CM_PHY_OTG_PWRDN		(1 << 1)
 #define OTGVDET_EN			(1 << 19)
 #define OTGSESSENDEN			(1 << 20)
+
 
 static void am33xx_usb_set_phy_power(u8 on, u32 *reg_addr)
 {
@@ -394,6 +418,15 @@ static void rtc_only(void)
 
 void s_init(void)
 {
+	watchdog_disable();
+	set_uart_mux_conf();
+	setup_early_clocks();
+	uart_soft_reset();
+	preloader_console_init();
+	puts("iysheng new uboot\n");
+	coloured_LED_init();
+	yellow_led_on();
+	//while(1);	
 #if defined(CONFIG_SPL_BUILD) && defined(CONFIG_SPL_RTC_ONLY_SUPPORT)
 	rtc_only();
 #endif
@@ -410,11 +443,15 @@ void early_system_init(void)
 	enable_norboot_pin_mux();
 #endif
 	watchdog_disable();
+	coloured_LED_init();
+	yellow_led_on();	
 	set_uart_mux_conf();
 	setup_early_clocks();
 	uart_soft_reset();
+	preloader_console_init();
+	puts("iysheng new uboot\n");
 #ifdef CONFIG_TI_I2C_BOARD_DETECT
-	do_board_detect();
+/*	do_board_detect(); iysheng*/
 #endif
 #if defined(CONFIG_SPL_AM33XX_ENABLE_RTC32K_OSC)
 	/* Enable RTC32K clock */

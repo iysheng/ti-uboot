@@ -53,6 +53,11 @@ static struct module_pin_mux uart0_pin_mux[] = {
 	{-1},
 };
 
+static struct module_pin_mux gpio5_3_pin_mux[] = {
+	{OFFSET(uart3_txd), (MODE(7) | PULLUP_EN)},
+	{-1},
+};
+
 static struct module_pin_mux mmc0_pin_mux[] = {
 	{OFFSET(mmc0_clk), (MODE(0) | PULLUDDIS | RXACTIVE)},  /* MMC0_CLK */
 	{OFFSET(mmc0_cmd), (MODE(0) | PULLUP_EN | RXACTIVE)},  /* MMC0_CMD */
@@ -117,6 +122,7 @@ static __maybe_unused struct module_pin_mux qspi_pin_mux[] = {
 
 void enable_uart0_pin_mux(void)
 {
+	configure_module_pin_mux(gpio5_3_pin_mux);
 	configure_module_pin_mux(uart0_pin_mux);
 }
 

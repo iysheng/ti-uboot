@@ -342,7 +342,7 @@ const struct dpll_params *get_dpll_ddr_params(void)
 
 	if (board_is_eposevm())
 		return &epos_evm_dpll_ddr[ind];
-	else if (board_is_evm() || board_is_sk())
+	else if (board_is_rico() || board_is_sk())
 		return &gp_evm_dpll_ddr;
 	else if (board_is_idk())
 		return &idk_dpll_ddr;
@@ -605,16 +605,16 @@ void sdram_init(void)
 		enable_vtt_regulator();
 		config_ddr(0, &ioregs_ddr3, NULL, NULL,
 			   &ddr3_emif_regs_400Mhz_beta, 0);
-	} else if (board_is_evm()) {
-		enable_vtt_regulator();
-		config_ddr(0, &ioregs_ddr3, NULL, NULL,
-			   &ddr3_emif_regs_400Mhz, 0);
 	} else if (board_is_sk()) {
 		config_ddr(400, &ioregs_ddr3, NULL, NULL,
 			   &ddr3_sk_emif_regs_400Mhz, 0);
 	} else if (board_is_idk()) {
 		config_ddr(400, &ioregs_ddr3, NULL, NULL,
 			   &ddr3_idk_emif_regs_400Mhz, 0);
+	} else {
+		enable_vtt_regulator();
+		config_ddr(0, &ioregs_ddr3, NULL, NULL,
+			   &ddr3_emif_regs_400Mhz, 0);
 	}
 }
 #endif
@@ -944,7 +944,7 @@ int board_eth_init(bd_t *bis)
 #ifdef CONFIG_SPL_LOAD_FIT
 int board_fit_config_name_match(const char *name)
 {
-	if (board_is_evm() && !strcmp(name, "am437x-gp-evm"))
+	if (board_is_rico() && !strcmp(name, "am437x-gp-evm"))
 		return 0;
 	else if (board_is_sk() && !strcmp(name, "am437x-sk-evm"))
 		return 0;

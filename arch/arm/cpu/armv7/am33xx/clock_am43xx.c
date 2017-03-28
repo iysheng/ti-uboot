@@ -82,6 +82,11 @@ void enable_basic_clocks(void)
 		&cmper->l4lsclkstctrl,
 		&cmwkup->wkclkstctrl,
 		&cmper->emifclkstctrl,
+		&cmper->gpio1clkctrl,
+		&cmper->gpio2clkctrl,
+		&cmper->gpio3clkctrl,
+		&cmper->gpio4clkctrl,
+		&cmper->gpio5clkctrl,
 		0
 	};
 

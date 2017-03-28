@@ -173,7 +173,7 @@ static int display_text_info(void)
 
 static int announce_dram_init(void)
 {
-	puts("DRAM:  ");
+	puts("iyshengDRAM:  ");
 	return 0;
 }
 
@@ -1052,16 +1052,21 @@ void board_init_f(ulong boot_flags)
 	 */
 	zero_global_data();
 #endif
+	puts("iysheng get in board_init_f() common/board_f.c\n");
 
 	gd->flags = boot_flags;
 	gd->have_console = 0;
 
 	if (initcall_run_list(init_sequence_f))
+	{
+		puts("iysheng stopped board_f() common/board_f.c\n");
 		hang();
-
+	}
+	puts("iysheng get out board_init_f() common/board_f.c\n");
 #if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX) && \
 		!defined(CONFIG_EFI_APP)
 	/* NOTREACHED - jump_to_copy() does not return */
+	puts("iysheng stopped common/board_f.c\n");
 	hang();
 #endif
 }

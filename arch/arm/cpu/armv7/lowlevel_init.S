@@ -16,6 +16,16 @@
 #include <linux/linkage.h>
 
 ENTRY(lowlevel_init)
+/*	
+iyshengbak:
+	ldr r1, =0x48322134	
+	ldr r2, =0xfffffff7	
+	str r2, [r1]
+	ldr r1, =0x4832213c
+	ldr r2, =0x00000008
+	str r2, [r1]	
+	b .	
+*/
 	/*
 	 * Setup a temporary stack. Global data is not available yet.
 	 */
@@ -54,6 +64,9 @@ ENTRY(lowlevel_init)
 	 * this init in the SPL board_init_f() function which is called
 	 * immediately after this.
 	 */
+	
+
+
 	bl	s_init
 	pop	{ip, pc}
 ENDPROC(lowlevel_init)
