@@ -141,13 +141,8 @@ void	yellow_led_on(void)
 }
 void	yellow_led_off(void)
 {
-	int a = 1000;
-	while(a>1)
-	{
-		a--;
-	}
 	gpio_set_value(yellow_led,0);
-//	puts("iysheng yellow led off.\n");
+	puts("iysheng yellow led off.\n");
 }
 
 /* AM33XX has two MUSB controllers which can be host or gadget */
@@ -418,7 +413,7 @@ static void rtc_only(void)
 
 void s_init(void)
 {
-	watchdog_disable();
+/*	watchdog_disable();
 	set_uart_mux_conf();
 	setup_early_clocks();
 	uart_soft_reset();
@@ -426,7 +421,7 @@ void s_init(void)
 	puts("iysheng new uboot\n");
 	coloured_LED_init();
 	yellow_led_on();
-	//while(1);	
+	while(1);	*/
 #if defined(CONFIG_SPL_BUILD) && defined(CONFIG_SPL_RTC_ONLY_SUPPORT)
 	rtc_only();
 #endif
@@ -443,13 +438,13 @@ void early_system_init(void)
 	enable_norboot_pin_mux();
 #endif
 	watchdog_disable();
-	coloured_LED_init();
-	yellow_led_on();	
+	/*coloured_LED_init();
+	yellow_led_on();*/
 	set_uart_mux_conf();
 	setup_early_clocks();
 	uart_soft_reset();
-	preloader_console_init();
-	puts("iysheng new uboot\n");
+	/*preloader_console_init();
+	puts("iysheng new uboot\n");*/
 #ifdef CONFIG_TI_I2C_BOARD_DETECT
 /*	do_board_detect(); iysheng*/
 #endif

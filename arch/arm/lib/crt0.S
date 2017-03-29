@@ -91,12 +91,7 @@ ENTRY(_main)
 
 	mov	r0, #0
 	bl	board_init_f
-/*delay:
-	ldr	r1, =0xfff
-	sub	r1, #1
-	beq	delay
-	*/
-	bl	yellow_led_off
+	bl	yellow_led_on
 
 #if ! defined(CONFIG_SPL_BUILD)
 

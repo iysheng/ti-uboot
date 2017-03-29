@@ -1052,7 +1052,7 @@ void board_init_f(ulong boot_flags)
 	 */
 	zero_global_data();
 #endif
-	puts("iysheng get in board_init_f() common/board_f.c\n");
+	/*puts("iysheng get in board_init_f() common/board_f.c\n");zhongduan wei chushihua*/
 
 	gd->flags = boot_flags;
 	gd->have_console = 0;
@@ -1062,11 +1062,10 @@ void board_init_f(ulong boot_flags)
 		puts("iysheng stopped board_f() common/board_f.c\n");
 		hang();
 	}
-	puts("iysheng get out board_init_f() common/board_f.c\n");
+	//puts("iysheng get out board_init_f() common/board_f.c\n");
 #if !defined(CONFIG_ARM) && !defined(CONFIG_SANDBOX) && \
 		!defined(CONFIG_EFI_APP)
 	/* NOTREACHED - jump_to_copy() does not return */
-	puts("iysheng stopped common/board_f.c\n");
 	hang();
 #endif
 }
